@@ -8,6 +8,8 @@ const validationSchema = Yup.object().shape({
     username:Yup.string().email('please enter valid email!').required('Username is Required!'),
   title: Yup.string().required('Title is required'),
   priority: Yup.string().required('Priority is required'),
+  status: Yup.string().required('Status is required'),
+  source: Yup.string().required('Source is required'),
   remarks: Yup.string(),
   dueDate: Yup.date().nullable().required('Due Date is required'),
 });
@@ -57,9 +59,7 @@ const CreateTicket = ({ open, onClose, onSubmit,initialValues }) => {
                     as={TextField}
                     label="Username"
                     name="username"
-                    placeholder="Enter Username"
                     fullWidth
-                    required
                     value={values.name}
                     onChange={handleChange}
                     error={touched.title && !!errors.title}
