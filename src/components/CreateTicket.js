@@ -1,70 +1,92 @@
-import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField, MenuItem } from '@mui/material';
-import { Formik, Form, Field} from 'formik';
-import * as Yup from 'yup';
+import React from "react";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+  MenuItem,
+} from "@mui/material";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
 
 // Validation schema using Yup
 const validationSchema = Yup.object().shape({
-    username:Yup.string().email('please enter valid email!').required('Username is Required!'),
-  title: Yup.string().required('Title is required'),
-  priority: Yup.string().required('Priority is required'),
-  status: Yup.string().required('Status is required'),
-  source: Yup.string().required('Source is required'),
+  username: Yup.string()
+    .email("please enter valid email!")
+    .required("Username is Required!"),
+  title: Yup.string().required("Title is required"),
+  priority: Yup.string().required("Priority is required"),
+  status: Yup.string().required("Status is required"),
+  source: Yup.string().required("Source is required"),
   remarks: Yup.string(),
-  dueDate: Yup.date().nullable().required('Due Date is required'),
+  dueDate: Yup.date().nullable().required("Due Date is required"),
 });
 
 // Priority options
 const priorities = [
-  { value: 'LOW', label: 'Low' },
-  { value: 'MED', label: 'Medium' },
-  { value: 'HIGH', label: 'High' },
+  { value: "LOW", label: "Low" },
+  { value: "MED", label: "Medium" },
+  { value: "HIGH", label: "High" },
 ];
 
 const sources = [
-  { value: 'sms', label: 'SMS' },
-  { value: 'gmail', label: 'Gmail' },
-  { value: 'mobile', label: 'Mobile' },
-  { value: 'whatsapp', label: 'Whatsapp' },
+  { value: "sms", label: "SMS" },
+  { value: "gmail", label: "Gmail" },
+  { value: "mobile", label: "Mobile" },
+  { value: "whatsapp", label: "Whatsapp" },
 ];
 
 const statuses = [
-  { value: 'Pending', label: 'Pending' },
-  { value: 'Open', label: 'Open' },
-  { value: 'Closed', label: 'Closed' },
+  { value: "Pending", label: "Pending" },
+  { value: "Open", label: "Open" },
+  { value: "Closed", label: "Closed" },
 ];
 
-const CreateTicket = ({ open, onClose, onSubmit,initialValues }) => {
-    return (
+const CreateTicket = ({ open, onClose, onSubmit, initialValues }) => {
+  return (
     <Dialog open={open} onClose={onClose} className="max-w-lg mx-auto">
-      <DialogTitle>{initialValues?'Edit Ticket':'Create a New Ticket'}</DialogTitle>
+      <DialogTitle>
+        {initialValues ? "Edit Ticket" : "Create a New Ticket"}
+      </DialogTitle>
       <Formik
-        initialValues={initialValues||{
-            username:'',
-          title: '',
-          status: '',
-          priority: '',
-          source: '',
-          remarks: '',
-          dueDate: null,
-        }}
+        initialValues={
+          initialValues || {
+            username: "",
+            title: "",
+            status: "",
+            priority: "",
+            source: "",
+            remarks: "",
+            dueDate: null,
+          }
+        }
         validationSchema={validationSchema}
         onSubmit={onSubmit}
-      >      
-        {({ values, handleChange, handleSubmit, setFieldValue, errors, touched }) => (
+      >
+        {({
+          values,
+          handleChange,
+          handleSubmit,
+          setFieldValue,
+          errors,
+          touched,
+        }) => (
           <Form onSubmit={handleSubmit} className="space-y-4">
             <DialogContent dividers>
               <div className="space-y-4">
-              <Field
-                    as={TextField}
-                    label="Username"
-                    name="username"
-                    fullWidth
-                    value={values.name}
-                    onChange={handleChange}
-                    error={touched.title && !!errors.title}
-                    helperText={touched.title && errors.title}
-                    className="w-full"                  />
+                <Field
+                  as={TextField}
+                  label="Username"
+                  name="username"
+                  fullWidth
+                  value={values.username}
+                  onChange={handleChange}
+                  error={touched.username && !!errors.username}
+                  helperText={touched.username && errors.username}
+                  className="w-full"
+                />
                 <Field
                   as={TextField}
                   fullWidth
@@ -148,7 +170,7 @@ const CreateTicket = ({ open, onClose, onSubmit,initialValues }) => {
                   name="dueDate"
                   label="Due Date"
                   value={values.dueDate}
-                  onChange={(e) => setFieldValue('dueDate', e.target.value)}
+                  onChange={(e) => setFieldValue("dueDate", e.target.value)}
                   error={touched.dueDate && !!errors.dueDate}
                   helperText={touched.dueDate && errors.dueDate}
                   InputLabelProps={{
@@ -159,8 +181,16 @@ const CreateTicket = ({ open, onClose, onSubmit,initialValues }) => {
               </div>
             </DialogContent>
             <DialogActions>
-              <Button onClick={onClose}  style={{color:'#000000'}}>Cancel</Button>
-              <Button type="submit" variant='contained' style={{color:'#000000'}}>{initialValues?'Update':'Create'}</Button>
+              <Button onClick={onClose} style={{ color: "#000000" }}>
+                Cancel
+              </Button>
+              <Button
+                type="submit"
+                variant="contained"
+                style={{ color: "#000000" }}
+              >
+                {initialValues ? "Update" : "Create"}
+              </Button>
             </DialogActions>
           </Form>
         )}
