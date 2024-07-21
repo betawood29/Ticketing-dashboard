@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, IconButton, Box, InputAdornment, TextField, Pagination, DialogActions, Button, DialogContentText, DialogContent, DialogTitle, Dialog } from '@mui/material';
 import { Delete, Edit, Sms, Email, Phone, Search, WhatsApp } from '@mui/icons-material';
-import { deleteTicket, updateTicket } from '../redux/formSlice';
+import {  deleteTicketThunk, updateTicketThunk } from '../redux/formSlice';
+import { deleteTicket as apiDeleteTicket, updateTicket as apiUpdateTicket } from '../api/tickets'; // Import API functions
 import CreateTicket from './CreateTicket';
 import TicketDetailView from './TicketDetailView';
 
@@ -24,18 +25,30 @@ const TicketTable = ({filter}) => {
     setTicketToDelete(id);
     setDeleteConfirmOpen(true);
   };
-  const confirmDelete = () => {
-    dispatch(deleteTicket(ticketToDelete));
-    setDeleteConfirmOpen(false);
-    setTicketToDelete(null);
+  const confirmDelete = async () => {
+    try {
+      await apiDeleteTicket(ticketToDelete);
+      dispatch(deleteTicketThunk(ticketToDelete));
+    } catch (error) {
+      console.error("Failed to delete the ticket", error);
+    } finally {
+      setDeleteConfirmOpen(false);
+      setTicketToDelete(null);
+    }
   };
   const handleEdit = (ticket) => {
     setEditTicket(ticket);
     setOpenEditDialog(true);
   };
-  const handleEditSubmit = (values) => {
-    dispatch(updateTicket(values));
-    setOpenEditDialog(false);
+  const handleEditSubmit = async (values) => {
+    try {
+      const updatedTicket = await apiUpdateTicket(values);
+      dispatch(updateTicketThunk(updatedTicket));
+    } catch (error) {
+      console.error("Failed to update the ticket", error);
+    } finally {
+      setOpenEditDialog(false);
+    }
   };
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);

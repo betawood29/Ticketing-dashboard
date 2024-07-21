@@ -1,7 +1,7 @@
 // src/api/tickets.js
 import axios from 'axios';
 
-const API_URL = 'https://api.example.com/tickets';
+const API_URL = 'http://localhost:8080/api/tickets';
 
 export const fetchTickets = async () => {
   const response = await axios.get(API_URL);
@@ -9,12 +9,12 @@ export const fetchTickets = async () => {
 };
 
 export const createTicket = async (ticket) => {
-  const response = await axios.post(API_URL, ticket);
+  const response = await axios.post(`${API_URL}/create`, ticket);
   return response.data;
 };
 
 export const updateTicket = async (ticket) => {
-  const response = await axios.put(`${API_URL}/${ticket.id}`, ticket);
+  const response = await axios.put(`${API_URL}/update/${ticket.id}`, ticket);
   return response.data;
 };
 

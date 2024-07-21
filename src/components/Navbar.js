@@ -30,7 +30,7 @@ import {
 import { v4 as uuidv4 } from 'uuid';
 import CreateTicket from "./CreateTicket";
 import { useDispatch } from "react-redux";
-import { saveFormData } from "../redux/formSlice";
+import { createTicketThunk } from "../redux/formSlice";
 import TicketTable from "./TicketTable";
 const Layout = (props) => {
     const dispatch=useDispatch();
@@ -50,13 +50,18 @@ const Layout = (props) => {
   };
 
   const handleSubmit=(values,props)=>{
-    const ticketWithId = { ...values, id: uuidv4() };
-    dispatch(saveFormData(ticketWithId));
-    setTimeout(()=>{
+    const ticketWithId = { ...values};
+    dispatch(createTicketThunk(ticketWithId))
+    .unwrap()
+    .then(() => {
         props.resetForm();
         props.setSubmitting(false);
         handleClose();
-      },1000)
+      })
+      .catch((error) => {
+        console.error('Failed to create ticket:', error);
+        props.setSubmitting(false);
+      });
   }
   const handleFilterChange = (filter) => {
     setFilter(filter);
