@@ -1,0 +1,56 @@
+[
+    {
+        "Ticket Id": 1,
+        "Username": "kiran@gmail.com",
+        "Title": "Login not working",
+        "Status": "Pending",
+        "Source": "Login Issue",
+        "Remarks": "LOW",
+        "Priority": "LOW",
+        "Due Date": "2024-07-24",
+   
+    },
+    {
+        "Ticket Id": 2,
+        "Username": "aman@gmail.com",
+        "Title": "damaged product",
+        "Status": "Closed",
+        "Source": "received damaged product",
+        "Remarks": "HIGH",
+        "Priority": "HIGH",
+        "Due Date": "2024-07-20",
+       
+    },
+    {
+        "Ticket Id": 3,
+        "Username": "mohana@kapture.com",
+        "Title": "order delayed",
+        "Status": "Closed",
+        "Source": "order delayed by 1 week",
+        "Remarks": "MED",
+        "Priority": "MED",
+        "Due Date": "2024-07-20",
+     },
+    {
+        "Ticket Id": 4,
+        "Username": "akshaya@yahoo.com",
+        "Title": "Checkout Issue",
+        "Status": "Pending",
+        "Source": "Error message not displaying on checkout",
+        "Remarks": "LOW",
+        "Priority": "LOW",
+        "Due Date": "2024-07-27",
+    
+    },
+    {
+        "Ticket Id": 5,
+        "Username": "pawan@chitkara.edu.in",
+        "Title": "Tv broken",
+        "Status": "Open",
+        "Source": "kindly replace the tv as soon as possible",
+        "Remarks": "MED",
+        "Priority": "MED",
+        "Due Date": "2024-07-30",
+      
+    }
+]
